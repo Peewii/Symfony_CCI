@@ -33,10 +33,11 @@ class Article
     private ?string $content = null;
 
     #[ORM\Column]
-    #[Gedmo\Timestampable(on: 'update')]
+    #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
+    #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column]
