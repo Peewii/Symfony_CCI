@@ -5,25 +5,23 @@
 	{{ parent() }}
 {% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('admin') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('admin') }}
+{% endblock %}
+
 {% block body %}
 	<section class="conatainer mt-4">
 		<h1 class="text-center">Administrations des articles</h1>
 		<a href="{{ path('admin.articles.create') }}" class="btn btn-primary mt-4">Créer un article</a>
 		<diw class="row mt-4">
 			{% for article in articles %}
-				<div class="col-md-4">
-					<div class="card">
-						<h2 class="card-header">{{ article.title | sanitize_html }}</h2>
-						<div class="card-body">
-							<p class="card-text">{{ article.content | sanitize_html }}</p>
-							<div class="d-flex justify-content-between">
-								<a href="{{ path('admin.articles.edit', {'id': article.id}) }}" class="btn btn-warning">Modifier</a>
-								{% include 'Backend/Article/_deleteForm.html.twig' %}
-							</div>
-						</div>
-					</div>
-				</div>
-
+				{% include 'Components/_articlecard.html.twig' %}
 			{% endfor %}
 		</diw>
 	</section>

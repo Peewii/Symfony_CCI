@@ -1,0 +1,18 @@
+<div class="blog-card">
+	<div class="blog-card-img">
+		{% if article.imageName %}
+			<img src="{{ vich_uploader_asset(article) }}" alt="{{ article.title }}" loading="lazy">
+		{% else %}
+			<img src="https://picsum.photos/300" alt="{{ article.title }}" loading="lazy">
+		{% endif %}
+	</div>
+	<div class="blog-card-content">
+		<i class="bi bi-calendar4-range"></i>
+		<p class="blog-card-content-date">
+			{{ article.createdAt|format_datetime('full', 'none') }}
+		</p>
+		<h2 class="blog-card-content-title">{{ article.title|sanitize_html}}</h2>
+		<p class="blog-card-content-desc">{{ article.title|sanitize_html |slice(0, 150)|sanitize_html}}...</p>
+		<p class="blog-card-content-autor">{{ article.user.fullName }}</p>
+	</div>
+</div>
