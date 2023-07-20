@@ -8,6 +8,7 @@ use App\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 #[Route('/admin/articles', name: 'admin.articles')]
@@ -71,5 +72,28 @@ class ArticleController extends AbstractController
         return $this->render('Backend/Article/edit.html.twig', [
             'form' => $form
         ]);
+    }
+    #[Route('/delete', name: '.delete', methods: ['POST'])]
+    public function delete(Request $request): RedirectResponse
+    {
+        $article = $this->articleRepo->find($request->get('id', 0));
+
+        if (!$article instanceof Article) {
+            $this->addFlash('error', 'Article non trouvé');
+
+            return $this->redirectToRoute('admin.articles.index', [], 404);
+        }
+
+        if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->get('token'))) {
+            $this->articleRepo->remove($article);
+
+            $this->addFlash('success', 'Article supprimé avec succès');
+
+            return $this->redirectToRoute('admin.articles.index');
+        }
+
+        $this->addFlash('error', 'Token invalide');
+
+        return $this->redirectToRoute('admin.articles.index');
     }
 }
