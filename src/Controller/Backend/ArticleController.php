@@ -34,6 +34,9 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $article->setUser($this->getUser());
+
             $this->articleRepo->save($article, true);
 
             $this->addFlash('success', 'Article créé avec succès!');
