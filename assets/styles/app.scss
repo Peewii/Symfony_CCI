@@ -4,5 +4,11 @@
 //import bootstrap
 @import "~bootstrap/scss/bootstrap";
 
+//Import Bootstrap Icons
+@import "~bootstrap-icons/font/bootstrap-icons.scss";
+
 //Import structure
-@import "./structure.scss";
+@import "./_structure.scss";
+
+// Import Components Files
+@import './Components/_articleCard.scss'
