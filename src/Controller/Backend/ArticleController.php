@@ -37,7 +37,7 @@ class ArticleController extends AbstractController
 
             $article->setUser($this->getUser());
 
-            $this->articleRepo->save($article, true);
+            $this->articleRepo->save($article);
 
             $this->addFlash('success', 'Article créé avec succès!');
 
@@ -46,6 +46,30 @@ class ArticleController extends AbstractController
 
         return $this->render('Backend/Article/create.html.twig', [
             'form' => $form,
+        ]);
+    }
+    #[Route('/{id}/edit', name: '.edit', methods: ['GET', 'POST'])]
+    public function edit(?Article $article, Request $request): Response
+    {
+        if (!$article instanceof Article) {
+            $this->addFlash('error', 'Article non trouvé');
+
+            return $this->redirectToRoute('admin.articles.index');
+        }
+
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->articleRepo->save($article);
+
+            $this->addFlash('success', 'Article mis à jour avec succès');
+
+            return $this->redirectToRoute('admin.articles.index');
+        }
+
+        return $this->render('Backend/Article/edit.html.twig', [
+            'form' => $form
         ]);
     }
 }

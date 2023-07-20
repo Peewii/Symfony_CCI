@@ -8,7 +8,7 @@
 
 {% block body %}
 	<section class="container mt-4">
-		<h1 class="text-center">{{ 'article.admin.heading.create'|trans(domain="content") }}</h1>
-		{% include 'Backend/Article/_form.html.twig' with { buttonLabel: 'Créer' } %}
+		<h1 class="text-center">{{ 'article.admin.heading.edit'|trans(domain="content") }}</h1>
+		{% include 'Backend/Article/_form.html.twig' with { buttonLabel: 'Modifier' } %}
 	</section>
 {% endblock %}

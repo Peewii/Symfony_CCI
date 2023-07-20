@@ -17,6 +17,6 @@
 {{ form_row(form.enable) }}
 
 <div class="text-center">
-    <button class="btn btn-primary" type:"submit">Créer</button>
+    <button class="btn btn-primary" type:"submit">{{ buttonLabel|default('save') }}</button>
 </div>
 {{ form_end(form) }}
